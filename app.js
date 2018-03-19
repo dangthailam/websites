@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
 const Business = require('./models/business');
 
@@ -10,20 +11,24 @@ mongoose.connect('mongodb://localhost/business-website');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get('/', (req, res, next) => {
     Business.find({}, (err, businesses) => {
         if (err) return next(err);
 
         res.render('pages/index', {
-            websites: businesses
+            businesses: businesses,
+            title: "test"
         });
     });
 });
 
 app.post('/', (req, res, next) => {
-    Business.create(new Business(req.body), (err) => {
+    const b = new Business(req.body);
+    b.save((err) => {
         if(err) return next(err);
-
         res.redirect('/');
     });
 });

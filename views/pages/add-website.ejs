@@ -15,7 +15,18 @@
     </header>
     <main>
         <h1>Add your website</h1>
-        
+        <form action="/" method="POST">
+            <input type="text" name="address" placeholder="Website address">
+            <input type="text" name="title" placeholder="Title">
+            <textarea name="description" rows="6" placeholder="Description"></textarea>
+            <select name="category" placeholder="Categories">
+                <option value="1">Education</option>
+                <option value="2">Business</option>
+                <option value="3">Finance</option>
+                <option value="3">Entertainment</option>
+            </select>
+            <button>Save</button>
+        </form>
     </main>
     <footer>
         <% include ../partials/footer %>
